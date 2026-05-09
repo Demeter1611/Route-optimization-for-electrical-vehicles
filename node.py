@@ -1,3 +1,6 @@
+import math
+
+
 class Node:
     def __init__(self, id, x, y, demand=0, type='customer'):
         self._id = id
@@ -36,6 +39,9 @@ class Node:
         if value not in allowed_types:
             raise ValueError("Invalid type")
         self._type = value
+
+    def distance_to(self, other):
+        return math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
     
     def __repr__(self):
         return f"Node(ID: {self.id:4} | Pos: ({self.x:6.1f}, {self.y:6.1f}) | Demand: {self.demand:3} | Type: {self.type:8})"

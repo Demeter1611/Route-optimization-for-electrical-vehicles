@@ -1,12 +1,12 @@
 from evrp_instance import EVRPInstance
+from aco_algorithm import ACO
 
 DATASET_DIRECTORY = './evrp-benchmark-set'
 FILENAME = "E-n22-k4.evrp"
 
 problem_instance = EVRPInstance(f"{DATASET_DIRECTORY}/{FILENAME}");
 
-for info_field in problem_instance.info:
-    print(f"{info_field}: {problem_instance.info.get(info_field)}")
+aco_solver = ACO(problem_instance, num_ants=30, n_iter=100)
+best_route, best_dist = aco_solver.run()
 
-for node in problem_instance.nodes:
-    print(problem_instance.nodes.get(node))
+print(f"Distanta minima: {best_dist:.2f}\nRuta: {best_route}")
