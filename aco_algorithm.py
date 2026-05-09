@@ -45,7 +45,7 @@ class Ant:
             energy_needed = dist_to_candidate * consumption_rate
             
             node_type = self.instance.nodes[n_id].type
-            
+
             if energy_needed > self.current_battery:
                 continue
 
@@ -61,10 +61,15 @@ class Ant:
                     candidates.append(n_id)
             
             elif node_type == 'station':
+                if self.current_battery > (0.6 * self.max_battery):
+                    continue
+
                 if self.instance.nodes[self.current_node].type != 'station':
                     candidates.append(n_id)
             
             elif node_type == 'depot':
+                if self.current_load > (0.5 * self.max_capacity) and self.current_battery > (0.5 * self.max_battery):
+                    continue
                 candidates.append(n_id)
             
         if not candidates:
@@ -182,8 +187,8 @@ class ACO:
                     j = route[idx + 1]
                     self.pheromone_matrix[i][j] += delta_tau
                     self.pheromone_matrix[j][i] += delta_tau
-            
-            print(f"Iteratia {iteration:3} | Cea mai buna distanta: {global_best_distance:.2f}")
+            if(iteration % 10 == 0):
+                print(f"Iteratia {iteration:3} | Cea mai buna distanta: {global_best_distance}")
             
         return global_best_route, global_best_distance
     

@@ -6,7 +6,7 @@ FILENAME = "E-n22-k4.evrp"
 
 problem_instance = EVRPInstance(f"{DATASET_DIRECTORY}/{FILENAME}");
 
-aco_solver = ACO(problem_instance, num_ants=30, n_iter=100)
+aco_solver = ACO(problem_instance, num_ants=30, n_iter=100, alpha=1.0, beta=2.0, rho=0.1)
 best_route, best_dist = aco_solver.run()
 
 print(f"Distanta minima: {best_dist:.2f}\nRuta: {best_route}")
